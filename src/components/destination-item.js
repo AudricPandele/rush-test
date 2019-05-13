@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { AppRegistry, FlatList, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import Swipeout from 'react-native-swipeout';
 
 class DestinationItem extends Component {
   constructor(props) {
@@ -7,22 +8,35 @@ class DestinationItem extends Component {
   }
 
   render() {
+    let swipeBtns = [
+      {
+        text: 'Delete',
+        backgroundColor: 'red',
+        onPress: () => {
+          this.deleteNote(rowData);
+        }
+      }
+    ];
     return (
-      <View>
-        <Text style={styles.item}>
-          ({this.props.item.key}) {this.props.item.value}
-        </Text>
-        <Text style={styles.subtext}>{this.props.item.subtext}</Text>
-      </View>
+      <Swipeout left={swipeBtns} backgroundColor='transparent'>
+        <View style={styles.view}>
+          <Text style={styles.item}>
+            ({this.props.item.key}) {this.props.item.value}
+          </Text>
+          <Text style={styles.subtext}>{this.props.item.subtext}</Text>
+        </View>
+      </Swipeout>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  view: {
+    borderBottomWidth: 1,
+    padding: 10
+  },
   item: {
-    padding: 10,
-    fontSize: 18,
-    borderBottomWidth: 1
+    fontSize: 18
   },
   subtext: {
     paddingLeft: 10,

@@ -11,7 +11,8 @@
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-elements": "^1.1.0",
-    "react-native-maps": "https://github.com/react-community/react-native-maps.git"
+    "react-native-maps": "https://github.com/react-community/react-native-maps.git",
+    "react-native-swipeout": "https://github.com/dancormier/react-native-swipeout.git"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

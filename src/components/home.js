@@ -17,8 +17,12 @@ class Home extends Component {
           <Map />
         </View>
         <View style={styles.directionButtonContainer}>
-          <Text style={styles.directionButtonText}>Destinations</Text>
-          <DestinationButton style={styles.directionButton} />
+          <View style={styles.directionButtonTextContainer}>
+            <Text style={styles.directionButtonText}>Destinations</Text>
+          </View>
+          <View style={styles.directionButton}>
+            <DestinationButton />
+          </View>
         </View>
         <ScrollView style={styles.destinations}>
           <Destinations />
@@ -47,13 +51,17 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row'
   },
+  directionButtonTextContainer: {
+    justifyContent: 'center',
+    width: '60%'
+  },
   directionButtonText: {
-    fontSize: 20,
-    textAlign: 'center',
+    fontSize: 25,
     textAlignVertical: 'center'
   },
   directionButton: {
-    textAlign: 'right'
+    width: '40%',
+    justifyContent: 'space-between'
   },
   destinations: {
     flex: 1

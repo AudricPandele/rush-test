@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Map from './mapView';
-import Search from './search';
-import { StyleSheet, Text, View } from 'react-native';
+import Map from '../../shared/mapView';
+import Search from '../../shared/search';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import DestinationButton from './destination-button';
+import LocationButton from './location-button';
 import Destinations from './destinations';
 
 class Home extends Component {
@@ -15,6 +16,9 @@ class Home extends Component {
         </View>
         <View style={styles.map}>
           <Map />
+        </View>
+        <View style={styles.locationButtonContainer}>
+          <LocationButton route='MapLocation' nav={this.props.navigation} />
         </View>
         <View style={styles.directionButtonContainer}>
           <View style={styles.directionButtonTextContainer}>
@@ -38,13 +42,17 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   search: {
-    top: 30,
     padding: 10,
     zIndex: 999,
     position: 'absolute'
   },
   map: {
     flex: 1
+  },
+  locationButtonContainer: {
+    position: 'absolute',
+    top: 290,
+    right: 10
   },
   directionButtonContainer: {
     borderBottomWidth: 1,

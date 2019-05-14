@@ -6,7 +6,7 @@ class DestinationButton extends Component {
   render() {
     return (
       <Button
-        icon={<Icon name='arrow-right' size={15} color='white' />}
+        icon={<Icon name='arrow-circle-right' size={15} color='white' />}
         title='DIRECTIONS'
       />
     );

@@ -1,9 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Home from './src/components/home';
+import Home from './src/components/homepage/home';
+import MapLocation from './src/components/mappage/map-location';
+import LocationButton from './src/components/homepage/location-button';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-export default class App extends React.Component {
+class App extends React.Component {
   render() {
     return <Home />;
   }
 }
+
+const AppNavigator = createStackNavigator({
+  Home: { screen: Home },
+  MapLocation: { screen: MapLocation },
+  LocationButton: { screen: LocationButton }
+});
+
+export default createAppContainer(AppNavigator);

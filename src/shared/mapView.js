@@ -60,9 +60,19 @@ class Map extends Component {
   }
 
   loadedMap() {
+    var markers = [
+      {
+        latitude: 45.65,
+        longitude: -78.9,
+        title: 'Foo Place',
+        subtitle: '1234 Foo Drive'
+      }
+    ];
+    const coordinates = this.state.lastLat + ' ' + this.state.lastLong;
     return (
       <View accessible={true} style={styles.container}>
         <MapView
+          annotations={markers}
           style={styles.map}
           initialRegion={{
             latitude: this.state.lastLat,
@@ -70,7 +80,16 @@ class Map extends Component {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421
           }}
-        />
+        >
+          <MapView.Marker
+            coordinate={{
+              latitude: this.state.lastLat,
+              longitude: this.state.lastLong
+            }}
+            title={'GPS Co-ordinates'}
+            description={coordinates}
+          />
+        </MapView>
         <Text>{this.state.lastLat}</Text>
       </View>
     );

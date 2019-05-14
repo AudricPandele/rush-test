@@ -7,7 +7,7 @@ class DestinationButton extends Component {
     return (
       <Button
         icon={<Icon name='arrow-circle-right' size={15} color='white' />}
-        title='DIRECTIONS'
+        title=' DIRECTIONS'
       />
     );
   }

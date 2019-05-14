@@ -1,14 +1,5 @@
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Button,
-  TouchableHighlight
-} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import MapView from 'react-native-maps';
 
 const styles = StyleSheet.create({
@@ -55,6 +46,13 @@ class Map extends Component {
     });
   }
 
+  onRegionChange = event => {
+    this.setState({
+      lastLat: event.latitude,
+      lastLong: event.longitude
+    });
+  };
+
   loadingMap() {
     return <Text>Map is loading ...</Text>;
   }
@@ -80,8 +78,10 @@ class Map extends Component {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421
           }}
+          onRegionChange={this.onRegionChange}
         >
           <MapView.Marker
+            draggable
             coordinate={{
               latitude: this.state.lastLat,
               longitude: this.state.lastLong

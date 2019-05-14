@@ -8,11 +8,36 @@ import LocationButton from './location-button';
 import Destinations from './destinations';
 
 class Home extends Component {
+  static navigationOptions = {
+    title: 'Home'
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      destinations: []
+    };
+  }
+
+  getDatas(params) {
+    const newKey = this.state.destinations.length + 1;
+    this.setState({
+      destinations: [
+        ...this.state.destinations,
+        {
+          key: newKey.toString(),
+          value: params.description,
+          subtext: params.structured_formatting.secondary_text
+        }
+      ]
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.search}>
-          <Search />
+          <Search callback={this.getDatas.bind(this)} />
         </View>
         <View style={styles.map}>
           <Map />
@@ -29,7 +54,7 @@ class Home extends Component {
           </View>
         </View>
         <ScrollView style={styles.destinations}>
-          <Destinations />
+          <Destinations datas={this.state.destinations} />
         </ScrollView>
       </View>
     );
@@ -42,6 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   search: {
+    width: '100%',
     padding: 10,
     zIndex: 999,
     position: 'absolute'

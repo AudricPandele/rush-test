@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, FlatList, StyleSheet, Text, View } from 'react-native';
 import DestinationItem from './destination-item';
+import { DestinationContext } from '../../context/destination-context';
 
 class Destinations extends Component {
   constructor(props) {
@@ -9,12 +10,21 @@ class Destinations extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <FlatList
-          data={this.props.datas}
-          renderItem={({ item }) => <DestinationItem item={item} />}
-        />
-      </View>
+      <DestinationContext.Consumer>
+        {({ deleteDestination }) => (
+          <View style={styles.container}>
+            <FlatList
+              data={this.props.datas}
+              renderItem={({ item }) => (
+                <DestinationItem
+                  item={item}
+                  deleteDestination={deleteDestination}
+                />
+              )}
+            />
+          </View>
+        )}
+      </DestinationContext.Consumer>
     );
   }
 }

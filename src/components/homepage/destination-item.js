@@ -13,7 +13,7 @@ class DestinationItem extends Component {
         text: 'Delete',
         backgroundColor: 'red',
         onPress: () => {
-          this.deleteNote(rowData);
+          this.props.deleteDestination(this.props.item.key);
         }
       }
     ];

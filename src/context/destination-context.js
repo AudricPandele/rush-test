@@ -22,10 +22,22 @@ export class DestinationProvider extends Component {
     });
   };
 
+  deleteDestination = id => {
+    this.setState({
+      destinations: this.state.destinations.filter(function(dest) {
+        return dest.key !== id;
+      })
+    });
+  };
+
   render() {
     return (
       <DestinationContext.Provider
-        value={{ ...this.state, addDestination: this.addDestination }}
+        value={{
+          ...this.state,
+          addDestination: this.addDestination,
+          deleteDestination: this.deleteDestination
+        }}
       >
         {this.props.children}
       </DestinationContext.Provider>

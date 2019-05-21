@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Map from '../../shared/mapView';
 import Search from '../../shared/search';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import DestinationButton from './destination-button';
 import LocationButton from './location-button';

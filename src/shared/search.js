@@ -12,7 +12,7 @@ class Search extends Component {
             style={styles.input}
             placeholder='Search here'
             minLength={2}
-            autoFocus={true}
+            autoFocus={false}
             returnKeyType={'search'}
             listViewDisplayed={false}
             fetchDetails={true}

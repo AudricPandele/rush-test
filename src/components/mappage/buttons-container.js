@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Button, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 class ButtonsContrainer extends Component {
+  addPosition = () => {
+    this.props.callback();
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -17,7 +21,7 @@ class ButtonsContrainer extends Component {
         <View style={styles.btnContainer}>
           <TouchableOpacity
             style={styles.btn}
-            onPress={() => navigate(this.props.route)}
+            onPress={() => this.addPosition()}
             underlayColor='#fff'
           >
             <Text style={styles.btnText}>CONFIRM</Text>

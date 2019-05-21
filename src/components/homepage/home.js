@@ -6,6 +6,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import DestinationButton from './destination-button';
 import LocationButton from './location-button';
 import Destinations from './destinations';
+import {
+  DestinationContext,
+  DestinationProvider
+} from '../../context/destination-context';
 
 class Home extends Component {
   static navigationOptions = {
@@ -14,49 +18,41 @@ class Home extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      destinations: []
-    };
-  }
-
-  getDatas(params) {
-    const newKey = this.state.destinations.length + 1;
-    this.setState({
-      destinations: [
-        ...this.state.destinations,
-        {
-          key: newKey.toString(),
-          value: params.description,
-          subtext: params.structured_formatting.secondary_text
-        }
-      ]
-    });
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.search}>
-          <Search callback={this.getDatas.bind(this)} />
-        </View>
-        <View style={styles.map}>
-          <Map />
-        </View>
-        <View style={styles.locationButtonContainer}>
-          <LocationButton route='MapLocation' nav={this.props.navigation} />
-        </View>
-        <View style={styles.directionButtonContainer}>
-          <View style={styles.directionButtonTextContainer}>
-            <Text style={styles.directionButtonText}>Destinations</Text>
-          </View>
-          <View style={styles.directionButton}>
-            <DestinationButton />
-          </View>
-        </View>
-        <ScrollView style={styles.destinations}>
-          <Destinations datas={this.state.destinations} />
-        </ScrollView>
-      </View>
+      <DestinationProvider>
+        <DestinationContext.Consumer>
+          {({ destinations, addDestination }) => (
+            <View style={styles.container}>
+              <View style={styles.search}>
+                <Search />
+              </View>
+              <View style={styles.map}>
+                <Map addDestination={addDestination} />
+              </View>
+              <View style={styles.locationButtonContainer}>
+                <LocationButton
+                  route='MapLocation'
+                  nav={this.props.navigation}
+                />
+              </View>
+              <View style={styles.directionButtonContainer}>
+                <View style={styles.directionButtonTextContainer}>
+                  <Text style={styles.directionButtonText}>Destinations</Text>
+                </View>
+                <View style={styles.directionButton}>
+                  <DestinationButton />
+                </View>
+              </View>
+              <ScrollView style={styles.destinations}>
+                <Destinations datas={destinations} />
+              </ScrollView>
+            </View>
+          )}
+        </DestinationContext.Consumer>
+      </DestinationProvider>
     );
   }
 }

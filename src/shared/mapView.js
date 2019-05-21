@@ -1,30 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MapView from 'react-native-maps';
-
-const styles = StyleSheet.create({
-  fadeIn: {
-    width: 250,
-    height: 50,
-    backgroundColor: '#bdc3c7'
-  },
-  container: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  },
-  map: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0
-  }
-});
+import Geocoder from 'react-geocode';
 
 class Map extends Component {
   state = {
@@ -35,6 +12,37 @@ class Map extends Component {
 
   constructor(props) {
     super(props);
+    Geocoder.setApiKey('AIzaSyAXOCuLpKmqv0imZNazvI-mglzb1_rrpls');
+  }
+
+  addDestination = destination => {
+    this.props.callback(destination);
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.addPosition) {
+      Geocoder.fromLatLng(this.state.lastLat, this.state.lastLong).then(
+        response => {
+          const number = response.results[0].address_components[0].long_name;
+          const street = response.results[0].address_components[1].long_name;
+          const neighborhood =
+            response.results[0].address_components[2].long_name;
+          const city = response.results[0].address_components[3].long_name;
+          const country = response.results[0].address_components[6].long_name;
+          const formatted_address = response.results[0].formatted_address;
+          const destination = {
+            value: number + ' ' + street + ', ' + neighborhood + ' ',
+            subtext: city + ', ' + country,
+            fullAddress: response.results[0].formatted_address
+          };
+          this.props.addDestination(destination);
+          this.props.nav.navigate('Home');
+        },
+        error => {
+          console.error(error);
+        }
+      );
+    }
   }
 
   componentDidMount() {
@@ -66,6 +74,7 @@ class Map extends Component {
         subtitle: '1234 Foo Drive'
       }
     ];
+
     const coordinates = this.state.lastLat + ' ' + this.state.lastLong;
     return (
       <View accessible={true} style={styles.container}>
@@ -90,7 +99,6 @@ class Map extends Component {
             description={coordinates}
           />
         </MapView>
-        <Text>{this.state.lastLat}</Text>
       </View>
     );
   }
@@ -107,3 +115,27 @@ class Map extends Component {
 }
 
 export default Map;
+
+const styles = StyleSheet.create({
+  fadeIn: {
+    width: 250,
+    height: 50,
+    backgroundColor: '#bdc3c7'
+  },
+  container: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  map: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
+  }
+});
